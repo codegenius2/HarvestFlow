@@ -1,0 +1,5 @@
+/paima-engine
+/paima-engine-linux
+/.idea/
+/.env.localhost
+/logs.log
