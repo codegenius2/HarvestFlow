@@ -7,14 +7,190 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"AllNftContractResponse": {
+			"Record_string.number-Array_": {
+				"properties": {},
+				"additionalProperties": {
+					"items": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": "array"
+				},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"GetUserNftsResponse": {
 				"properties": {
-					"dummy": {
+					"ownedNfts": {
+						"$ref": "#/components/schemas/Record_string.number-Array_"
+					}
+				},
+				"required": [
+					"ownedNfts"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NftHistoryEventType": {
+				"type": "string",
+				"enum": [
+					"contract_created",
+					"purchase",
+					"activate",
+					"claim",
+					"remove_principal",
+					"withdraw",
+					"deposit"
+				]
+			},
+			"NftHistoryEvent": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"eventType": {
+						"$ref": "#/components/schemas/NftHistoryEventType"
+					},
+					"timestamp": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"eventType",
+					"timestamp"
+				],
+				"type": "object"
+			},
+			"NftHistoryResponse": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"history": {
+						"items": {
+							"$ref": "#/components/schemas/NftHistoryEvent"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"address",
+					"history"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetDetailedNftContractResponse": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"supplyCap": {
+						"type": "number",
+						"format": "double"
+					},
+					"mintedAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"leaseStart": {
+						"type": "number",
+						"format": "double"
+					},
+					"leaseEnd": {
+						"type": "number",
+						"format": "double"
+					},
+					"minYield": {
+						"type": "number",
+						"format": "double"
+					},
+					"accepted_token": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"poolBalance": {
+						"type": "string"
+					},
+					"metadata": {},
+					"activated": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"symbol",
+					"chainId",
+					"address",
+					"supplyCap",
+					"mintedAmount",
+					"leaseStart",
+					"leaseEnd",
+					"minYield",
+					"accepted_token",
+					"price",
+					"poolBalance",
+					"metadata",
+					"activated"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetClaimableResponse": {
+				"properties": {
+					"yield": {
+						"type": "string"
+					},
+					"principal": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"dummy"
+					"yield",
+					"principal"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetAllNftContractsResponse": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "string"
+					},
+					"leaseStart": {
+						"type": "number",
+						"format": "double"
+					},
+					"leaseEnd": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"symbol",
+					"chainId",
+					"leaseStart",
+					"leaseEnd"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -32,7 +208,7 @@
 		"contact": {}
 	},
 	"paths": {
-		"/all_nft_contract": {
+		"/user_nfts": {
 			"get": {
 				"operationId": "Get",
 				"responses": {
@@ -41,14 +217,147 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AllNftContractResponse"
+									"$ref": "#/components/schemas/GetUserNftsResponse"
 								}
 							}
 						}
 					}
 				},
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "query",
+						"name": "userAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/nft_history": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NftHistoryResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/detailed_nft": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetDetailedNftContractResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/claimable": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetClaimableResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "nftAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/all_nft": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/GetAllNftContractsResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "notEnded",
+						"required": false,
+						"schema": {
+							"default": true,
+							"type": "boolean"
+						}
+					}
+				]
 			}
 		}
 	},
