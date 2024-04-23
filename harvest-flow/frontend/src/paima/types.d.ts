@@ -1,2 +1,5 @@
-declare const _default: {};
-export default _default;
+import { NftContract } from "@harvest-flow/utils";
+export interface GetAllNftContractsResponse {
+    success: boolean;
+    contracts: NftContract[];
+}

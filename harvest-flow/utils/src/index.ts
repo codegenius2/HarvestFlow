@@ -4,3 +4,6 @@ const VERSION_MINOR = 1;
 const VERSION_PATCH = 1;
 export const gameBackendVersion: VersionString = `${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}`;
 export const APP_NAME = 'Harvest Flow';
+
+export * from './types.js';
+export type * from './types.js';

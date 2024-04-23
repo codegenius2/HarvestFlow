@@ -1,2 +1,1 @@
-import type { WalletAddress } from '@paima/sdk/utils';
-
+export declare function backendQueryGetAllNfts(notEnded: boolean): string;

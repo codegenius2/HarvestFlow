@@ -1,4 +1,8 @@
+import {NftContract} from "@harvest-flow/utils";
 
-export default {}
+export interface GetAllNftContractsResponse {
+    success: boolean;
+    contracts: NftContract[];
+}
 
 

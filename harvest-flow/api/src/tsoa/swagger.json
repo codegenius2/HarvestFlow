@@ -165,7 +165,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"GetAllNftContractsResponse": {
+			"NftContract": {
 				"properties": {
 					"name": {
 						"type": "string"
@@ -338,7 +338,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/GetAllNftContractsResponse"
+										"$ref": "#/components/schemas/NftContract"
 									},
 									"type": "array"
 								}

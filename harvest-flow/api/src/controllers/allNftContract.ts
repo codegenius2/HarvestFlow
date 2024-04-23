@@ -1,24 +1,15 @@
 import {Controller, Route, Get, Query} from 'tsoa';
-
-interface GetAllNftContractsResponse {
-    name: string; // erc721
-    symbol:  string; // erc721
-
-    chainId: string; // caip-2 format
-
-    leaseStart: number;
-    leaseEnd: number;
-}
+import {NftContract} from "@harvest-flow/utils";
 
 @Route('all_nft')
 export class AllNftContractController extends Controller {
     @Get()
-    public async get(@Query() notEnded : boolean = true): Promise<GetAllNftContractsResponse[]> {
+    public async get(@Query() notEnded : boolean = true): Promise<NftContract[]> {
         return dummyContracts.filter((nft) => notEnded ? nft.leaseEnd >= Date.now() : true);
     }
 }
 
-const dummyContracts: GetAllNftContractsResponse[] = [
+const dummyContracts: NftContract[] = [
     {
         name: 'Dummy NFT',
         symbol: 'DNFT',
