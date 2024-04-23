@@ -34,12 +34,17 @@ class MainController {
     }
   }
 
-  private isWalletConnected = (): boolean => {
-    return typeof window.ethereum !== "undefined" ? true : false;
+  isWalletConnected = (): boolean => {
+    return this.userAddress !== null;
   };
 
-  async connectWallet(loginInfo: LoginInfo) {
-    // TODO: connect wallet
+  async connectWallet(loginInfo : LoginInfo) : Promise<string> {
+    const response = await Paima.default.userWalletLogin(loginInfo);
+    console.log("connect wallet response: ", response);
+    if (response.success === true) {
+      this.userAddress = response.result.walletAddress;
+      return response.result.walletAddress;
+    }
   }
 
   async getAllNft(notEnded : boolean): Promise<NftContract[]> {

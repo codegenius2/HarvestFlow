@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  color: gray;
+  color: black;
   font-family: "Inter", "Arial", sans-serif;
   margin: 0;
   padding: 0;
@@ -22,4 +22,24 @@ body {
 
 html * {
   box-sizing: border-box;
+}
+
+.borderBottom {
+  border-bottom: 1px solid black;
+}
+
+.borderTop {
+  border-top: 1px solid black;
+}
+
+.borderLeft {
+  border-left: 1px solid black;
+}
+
+.borderRight {
+  border-right: 1px solid black;
+}
+
+.borderAll {
+  border: 1px solid black;
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+import Layout from "@src/layouts/Layout";
 
 const Account: React.FC = () => {
     return (
-        <div>
+        <Layout>
             <h1>Account</h1>
-        </div>
+        </Layout>
     );
 }
 

@@ -1,26 +1,24 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
-import Navbar from "@src/components/Navbar";
-import Logo from "@src/components/Logo";
+import Header from "@src/components/Header";
 
 interface Props {
   children?: React.ReactNode;
   small?: boolean;
-  navbar?: boolean;
+  header?: boolean;
 }
 
-const Layout: React.FC<Props> = ({ children, small, navbar = true }) => {
+const Layout: React.FC<Props> = ({ children, small, header = true }) => {
   return (
     <>
-      {navbar ? (
-        <Navbar />
-      ) : (
-        <Box marginBottom="40px" marginTop="24px">
-          <Logo height={116} />
-        </Box>
-      )}
-      <Container maxWidth={small ? "sm" : "lg"}>{children}</Container>
+      <Container
+          disableGutters maxWidth={small ? "sm" : "lg"}
+          className="borderAll"
+      >
 
+        {header && <Header /> }
+        {children}
+      </Container>
     </>
   );
 };

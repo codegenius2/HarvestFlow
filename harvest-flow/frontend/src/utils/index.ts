@@ -38,3 +38,5 @@ export const blocksToTime = (blocks: number): string => {
 };
 
 export const blocksToSeconds = (blocks: number): number => blocks * BLOCK_TIME;
+
+export * from "./utils"

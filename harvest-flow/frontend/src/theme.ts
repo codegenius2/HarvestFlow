@@ -1,9 +1,11 @@
 import { createTheme } from "@mui/material";
 
+
 const gray = "#898989";
 const darkBlue = "#25515B";
 const lightBlue = "#57E7FB";
 const pink = "#FCA2F9";
+const black = "#000000";
 
 const squareLight = "#D8E9EB";
 const squareDark = "#907B90";
@@ -20,7 +22,7 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: darkBlue,
+      main: black,
       light: lightBlue,
       dark: "#000000",
       contrastText: gray,
@@ -40,7 +42,7 @@ export const theme = createTheme({
       fontStyle: "normal",
       fontWeight: 500,
       fontSize: 20,
-      color: "gray",
+      color: "black",
       letterSpacing: "0.08em",
       textTransform: "uppercase",
     },
@@ -48,14 +50,14 @@ export const theme = createTheme({
       fontStyle: "normal",
       fontWeight: 500,
       fontSize: "14px",
-      color: gray,
+      color: black,
     },
     body1: {
       fontStyle: "normal",
       fontWeight: 500,
       fontSize: "16px",
       textAlign: "center",
-      color: "gray",
+      color: "black",
     },
   },
   components: {
