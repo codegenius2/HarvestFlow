@@ -1,4 +1,6 @@
-import type { LoginInfo } from "@paima/sdk/mw-core";
+import * as Paima from "./paima/middleware.js";
+import {FailedResult, LoginInfo} from "@paima/sdk/mw-core";
+import {ClaimableYield, NftContract, NftContractDetails, NftHistory, UserNftOwnership} from "@harvest-flow/utils";
 
 // The MainController is a React component that will be used to control the state of the application
 // It will be used to check if the user has metamask installed and if they are connected to the correct network
@@ -38,6 +40,55 @@ class MainController {
 
   async connectWallet(loginInfo: LoginInfo) {
     // TODO: connect wallet
+  }
+
+  async getAllNft(notEnded : boolean): Promise<NftContract[]> {
+    const response = await Paima.default.getAllNfts(
+        notEnded
+    );
+    console.debug("Get All Nft response: ", response);
+    if (!response.success) {
+      throw new Error((response as FailedResult).errorMessage);
+    }
+    return response.contracts;
+  }
+
+  async getDetailedNftContract(contractAddress: string): Promise<NftContractDetails> {
+    const response = await Paima.default.getDetailedNftContract(contractAddress);
+    console.debug("Get Nft Detail response: ", response);
+    if (!response.success) {
+      throw new Error((response as FailedResult).errorMessage);
+    }
+    return response.contract;
+  }
+
+  async getNftHistory(contractAddress: string): Promise<NftHistory> {
+    const response = await Paima.default.getNftHistory(contractAddress);
+    console.debug("Get Nft History response: ", response);
+    if (!response.success) {
+      throw new Error((response as FailedResult).errorMessage);
+    }
+    return {address: response.address, history: response.history};
+  }
+
+  async getUserNfts(): Promise<UserNftOwnership> {
+      //await this.enforceWalletConnected();
+      //const response = await Paima.default.getUserNfts(this.userAddress!);
+      const response = await Paima.default.getUserNfts("");
+      console.debug("Get User Nfts response: ", response);
+      if (!response.success) {
+        throw new Error((response as FailedResult).errorMessage);
+      }
+      return {ownedNfts: response.ownedNfts};
+  }
+
+  async getClaimable(contractAddress: string, tokenId : string): Promise<ClaimableYield> {
+    const response = await Paima.default.getClaimable(contractAddress, tokenId);
+    console.debug("Get Claimable response: ", response);
+    if (!response.success) {
+      throw new Error((response as FailedResult).errorMessage);
+    }
+    return {yield: response.yield, principal: response.principal};
   }
 
 }

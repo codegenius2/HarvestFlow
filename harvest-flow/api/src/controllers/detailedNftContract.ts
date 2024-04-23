@@ -1,38 +1,18 @@
 import {Get, Query, Route} from "tsoa";
 import {Controller} from "@tsoa/runtime";
+import {NftContractDetails} from "@harvest-flow/utils";
 
-interface GetDetailedNftContractResponse {
-    name: string; // erc721
-    symbol:  string; // erc721
 
-    chainId: string; // caip-2 format
-    address: string; // address on chain
 
-    supplyCap: number
-    mintedAmount: number; // <= supplyCap
-
-    leaseStart: number;
-    leaseEnd: number;
-    minYield: number; // min fixed interest rate
-
-    accepted_token: string; // Dai only for now
-    price: string;
-    poolBalance: string; // funds remaining in the contract to pay holders
-
-    metadata: unknown; // cached data from IPFS
-
-    activated: boolean; // see spec
-}
-
-@Route('detailed_nft')
+@Route('nft_details')
 export class DetailedNftContractController extends Controller {
     @Get()
-    public async get(@Query() address : string): Promise<GetDetailedNftContractResponse> {
+    public async get(@Query() contractAddress : string): Promise<NftContractDetails> {
         return dummyResponse;
     }
 }
 
-const dummyResponse: GetDetailedNftContractResponse = {
+const dummyResponse: NftContractDetails = {
     name: 'Dummy NFT',
     symbol: 'DNFT',
     chainId: 'eip155:42161',

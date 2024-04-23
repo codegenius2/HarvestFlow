@@ -1,27 +1,17 @@
 import {Get, Query, Route} from "tsoa";
 import {Controller} from "@tsoa/runtime";
+import {NftHistory} from "@harvest-flow/utils";
 
-interface NftHistoryResponse {
-    address: string;
-    history: NftHistoryEvent[];
-}
-
-type NftHistoryEventType =  'contract_created' | 'purchase' | 'activate' | 'claim' | 'remove_principal' | 'withdraw' | 'deposit';
-type NftHistoryEvent = {
-    timestamp: number;
-    eventType: NftHistoryEventType;
-    transactionHash: string;
-}
 
 @Route('nft_history')
 export class NftHistoryController extends Controller {
     @Get()
-    public async get(@Query() address: string): Promise<NftHistoryResponse> {
+    public async get(@Query() contractAddress: string): Promise<NftHistory> {
         return dummyHistory;
     }
 }
 
-const dummyHistory: NftHistoryResponse = {
+const dummyHistory: NftHistory = {
     address: '0x1234567890abcdef1234567890abcdef12345678',
     history: [
         {

@@ -19,7 +19,7 @@
 				"type": "object",
 				"description": "Construct a type with a set of properties K of type T"
 			},
-			"GetUserNftsResponse": {
+			"UserNftOwnership": {
 				"properties": {
 					"ownedNfts": {
 						"$ref": "#/components/schemas/Record_string.number-Array_"
@@ -63,7 +63,7 @@
 				],
 				"type": "object"
 			},
-			"NftHistoryResponse": {
+			"NftHistory": {
 				"properties": {
 					"address": {
 						"type": "string"
@@ -82,7 +82,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"GetDetailedNftContractResponse": {
+			"NftContractDetails": {
 				"properties": {
 					"name": {
 						"type": "string"
@@ -149,7 +149,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"GetClaimableResponse": {
+			"ClaimableYield": {
 				"properties": {
 					"yield": {
 						"type": "string"
@@ -217,7 +217,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/GetUserNftsResponse"
+									"$ref": "#/components/schemas/UserNftOwnership"
 								}
 							}
 						}
@@ -245,7 +245,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/NftHistoryResponse"
+									"$ref": "#/components/schemas/NftHistory"
 								}
 							}
 						}
@@ -255,7 +255,7 @@
 				"parameters": [
 					{
 						"in": "query",
-						"name": "address",
+						"name": "contractAddress",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -264,7 +264,7 @@
 				]
 			}
 		},
-		"/detailed_nft": {
+		"/nft_details": {
 			"get": {
 				"operationId": "Get",
 				"responses": {
@@ -273,7 +273,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/GetDetailedNftContractResponse"
+									"$ref": "#/components/schemas/NftContractDetails"
 								}
 							}
 						}
@@ -283,7 +283,7 @@
 				"parameters": [
 					{
 						"in": "query",
-						"name": "address",
+						"name": "contractAddress",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -301,7 +301,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/GetClaimableResponse"
+									"$ref": "#/components/schemas/ClaimableYield"
 								}
 							}
 						}

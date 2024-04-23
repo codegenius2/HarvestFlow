@@ -22,7 +22,7 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"additionalProperties":{"dataType":"array","array":{"dataType":"double"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "GetUserNftsResponse": {
+    "UserNftOwnership": {
         "dataType": "refObject",
         "properties": {
             "ownedNfts": {"ref":"Record_string.number-Array_","required":true},
@@ -40,7 +40,7 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"transactionHash":{"dataType":"string","required":true},"eventType":{"ref":"NftHistoryEventType","required":true},"timestamp":{"dataType":"double","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "NftHistoryResponse": {
+    "NftHistory": {
         "dataType": "refObject",
         "properties": {
             "address": {"dataType":"string","required":true},
@@ -49,7 +49,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "GetDetailedNftContractResponse": {
+    "NftContractDetails": {
         "dataType": "refObject",
         "properties": {
             "name": {"dataType":"string","required":true},
@@ -70,7 +70,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "GetClaimableResponse": {
+    "ClaimableYield": {
         "dataType": "refObject",
         "properties": {
             "yield": {"dataType":"string","required":true},
@@ -132,7 +132,7 @@ export function RegisterRoutes(app: Router) {
 
             function NftHistoryController_get(request: any, response: any, next: any) {
             const args = {
-                    address: {"in":"query","name":"address","required":true,"dataType":"string"},
+                    contractAddress: {"in":"query","name":"contractAddress","required":true,"dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -151,13 +151,13 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/detailed_nft',
+        app.get('/nft_details',
             ...(fetchMiddlewares<RequestHandler>(DetailedNftContractController)),
             ...(fetchMiddlewares<RequestHandler>(DetailedNftContractController.prototype.get)),
 
             function DetailedNftContractController_get(request: any, response: any, next: any) {
             const args = {
-                    address: {"in":"query","name":"address","required":true,"dataType":"string"},
+                    contractAddress: {"in":"query","name":"contractAddress","required":true,"dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
