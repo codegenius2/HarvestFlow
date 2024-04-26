@@ -14,8 +14,8 @@ export enum Page {
   Account = "/account",
   Project = "/project",
 }
-const TOKTOK_NFT_CONTRACT_ADDRESS: string = process.env.TOKTOK_NFT_CONTRACT_ADDRESS ?? "a";
-const PAYMENT_TOKEN_CONTRACT_ADDRESS: string = process.env.PAYMENT_TOKEN_CONTRACT_ADDRESS?? "b";
+const TOKTOK_NFT_CONTRACT_ADDRESS: string = process.env.TOKTOK_NFT_CONTRACT_ADDRESS;
+const PAYMENT_TOKEN_CONTRACT_ADDRESS: string = process.env.PAYMENT_TOKEN_CONTRACT_ADDRESS;
 
 // This is a class that will be used to control the state of the application
 // the benefit of this is that it is very easy to test its logic unlike a react component
@@ -62,11 +62,10 @@ class MainController {
   }
 
   async buyNft(amountToBuy : number, price: number){
-    console.log(TOKTOK_NFT_CONTRACT_ADDRESS, PAYMENT_TOKEN_CONTRACT_ADDRESS)
     if(!this.isWalletConnected()){
-      console.error("Wallet is not connected");
+      this.callback(null, null, "Wallet not connected");
+      return;
     }
-    console.log("Buying NFT with amount: ", amountToBuy);
 
     const amountToPay = amountToBuy * price;
     // get approval for the contract
@@ -80,7 +79,6 @@ class MainController {
     let approved = false;
 
     const amountToApprove = ethers.utils.parseEther(amountToPay.toString());
-    console.log("Amount to approve: ", amountToApprove);
 
     try{
       await paymentTokenContract.approve(TOKTOK_NFT_CONTRACT_ADDRESS, amountToApprove);
