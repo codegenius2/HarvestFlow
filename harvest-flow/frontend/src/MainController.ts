@@ -1,6 +1,9 @@
 import * as Paima from "./paima/middleware.js";
 import {FailedResult, LoginInfo} from "@paima/sdk/mw-core";
 import {ClaimableYield, NftContract, NftContractDetails, NftHistory, UserNftOwnership} from "@harvest-flow/utils";
+import {Web3Provider} from "@ethersproject/providers";
+import {Contract, ethers} from "ethers";
+import TokTokNftAbi from "./abi/TokTokNft";
 
 // The MainController is a React component that will be used to control the state of the application
 // It will be used to check if the user has metamask installed and if they are connected to the correct network
@@ -11,15 +14,23 @@ export enum Page {
   Account = "/account",
   Project = "/project",
 }
+const TOKTOK_NFT_CONTRACT_ADDRESS: string = process.env.TOKTOK_NFT_CONTRACT_ADDRESS ?? "a";
+const PAYMENT_TOKEN_CONTRACT_ADDRESS: string = process.env.PAYMENT_TOKEN_CONTRACT_ADDRESS?? "b";
 
 // This is a class that will be used to control the state of the application
 // the benefit of this is that it is very easy to test its logic unlike a react component
 class MainController {
   userAddress: string | null = null;
 
+
+  private provider?: Web3Provider = undefined;
+  private lendingContract? : Contract = undefined;
+
   callback: (
-    page: Page | null,
-  ) => void;
+    loadingMessage: string | null,
+    successMessage: string | null,
+    errorMessage: string | null
+  ) => void = () => {};
 
   private checkCallback() {
     if (this.callback == null) {
@@ -42,10 +53,61 @@ class MainController {
     const response = await Paima.default.userWalletLogin(loginInfo);
     console.log("connect wallet response: ", response);
     if (response.success === true) {
+      this.callback(null, `Wallet connected to address: ${response.result.walletAddress}`, null);
       this.userAddress = response.result.walletAddress;
+      this.provider = new Web3Provider(window.ethereum);
+      this.lendingContract = new Contract(TOKTOK_NFT_CONTRACT_ADDRESS, TokTokNftAbi, this.provider.getSigner());
       return response.result.walletAddress;
     }
   }
+
+  async buyNft(amountToBuy : number, price: number){
+    console.log(TOKTOK_NFT_CONTRACT_ADDRESS, PAYMENT_TOKEN_CONTRACT_ADDRESS)
+    if(!this.isWalletConnected()){
+      console.error("Wallet is not connected");
+    }
+    console.log("Buying NFT with amount: ", amountToBuy);
+
+    const amountToPay = amountToBuy * price;
+    // get approval for the contract
+    this.callback("Approving payment", null, null);
+    const paymentTokenContract = new Contract(
+        PAYMENT_TOKEN_CONTRACT_ADDRESS,
+        ["function approve(address _spender, uint256 _value) public returns (bool success)"],
+        this.provider.getSigner()
+    );
+
+    let approved = false;
+
+    const amountToApprove = ethers.utils.parseEther(amountToPay.toString());
+    console.log("Amount to approve: ", amountToApprove);
+
+    try{
+      await paymentTokenContract.approve(TOKTOK_NFT_CONTRACT_ADDRESS, amountToApprove);
+      approved = true;
+    } catch (e) {
+      console.error("Error approving payment: ", e);
+      this.callback(null, null, "Error approving payment");
+      return;
+    }
+
+    if(approved) {
+      this.callback("Buying NFT", null, null);
+      try {
+        //TODO: show some info about the NFT
+        await this.lendingContract.mint(amountToBuy, this.userAddress);
+        this.callback(null, "NFT bought successfully", null);
+      } catch (e) {
+        console.error("Error buying NFT: ", e);
+        this.callback(null, null, "Error buying NFT");
+        return;
+      }
+
+    }
+
+
+  }
+
 
   async getAllNft(notEnded : boolean): Promise<NftContract[]> {
     const response = await Paima.default.getAllNfts(

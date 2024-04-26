@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import Header from "@src/components/Header";
+import FeedbackModal from "@src/components/FeedbackModal";
 
 interface Props {
   children?: React.ReactNode;
@@ -19,6 +20,7 @@ const Layout: React.FC<Props> = ({ children, small, header = true }) => {
         {header && <Header /> }
         {children}
       </Container>
+      <FeedbackModal />
     </>
   );
 };

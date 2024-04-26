@@ -1,4 +1,5 @@
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+import {Bytecode} from "hardhat/internal/hardhat-network/stack-traces/model";
 
 export default buildModule('TokTokNft', m => {
     const mockToken = m.contract('MockERC20', ['MockToken', 'MT', 1000000]);
@@ -15,10 +16,15 @@ export default buildModule('TokTokNft', m => {
               1000 * 60 * 60 * 24 * 7 ,// @param lending period
               "",// @param uri_ Base URI for the token
               m.getAccount(0)// @param owner_ Owner of the contract
-
       ]);
 
+    //activate the contract
+    const activate = m.call(tokTokNftContract, "activate", []);
+
+    // send ETH and MockToken to my test account
+    m.send("SendingEth", "0xC7894CC334A5D21a833CDe21B53d7Fd76B5D882D", 1_000_000_000_000_000_000n);
+    m.call(mockToken, "transfer", ["0xC7894CC334A5D21a833CDe21B53d7Fd76B5D882D", 1_000_000_000_000_000_000_000n]);
 
     tokTokNftContract.dependencies.add(mockToken);
-    return { mockToken, tokTokNftContract };
+    return { tokTokNftContract };
 });
