@@ -12,3 +12,14 @@ export function middleEllipsis(address: string, length: number = 15) {
         address.length,
     )}`
 }
+
+export function formatTime(time: number): string {
+    const days = Math.floor(time / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+        (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((time % (1000 * 60)) / 1000);
+
+    return `${String(days)} d ${String(hours).padStart(2, '0')} hrs ${String(minutes).padStart(2, '0')} mins ${String(seconds).padStart(2, '0')} secs`;
+}

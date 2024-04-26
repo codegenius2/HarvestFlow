@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from "@src/layouts/Layout";
-import BuySell from "@src/components/BuySell";
+import BuyPanel from "@src/components/BuyPanel";
 
 const Account: React.FC = () => {
     return (
         <Layout>
             <h1>Account</h1>
-            <BuySell/>
+            <BuyPanel/>
         </Layout>
     );
 }

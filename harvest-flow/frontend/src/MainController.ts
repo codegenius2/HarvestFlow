@@ -122,7 +122,8 @@ class MainController {
     const response = await Paima.default.getDetailedNftContract(contractAddress);
     console.debug("Get Nft Detail response: ", response);
     if (!response.success) {
-      throw new Error((response as FailedResult).errorMessage);
+      console.error("Error getting NFT details: ", response);
+      return null;
     }
     return response.contract;
   }

@@ -23,7 +23,7 @@ const dummyResponse: NftContractDetails = {
     leaseEnd: Date.parse('2024-07-10T00:00:00Z'),
     minYield: 1,
     accepted_token: '0x9876543210fedcba9876543210fedcba98765432',
-    price: '0.01',
+    price: '4000',
     poolBalance: '100',
     metadata: {},
     activated: true

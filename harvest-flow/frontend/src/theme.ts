@@ -4,8 +4,8 @@ import { createTheme } from "@mui/material";
 const gray = "#898989";
 const darkBlue = "#25515B";
 const lightBlue = "#57E7FB";
-const pink = "#FCA2F9";
 const black = "#000000";
+const white = "#FFFFFF";
 
 const squareLight = "#D8E9EB";
 const squareDark = "#907B90";
@@ -104,11 +104,11 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          background: `linear-gradient(90deg, ${lightBlue} 0%, ${pink} 100%)`,
-          borderRadius: "4px",
-          color: "black",
+          background: black,
+          color: white,
           fontWeight: 600,
           fontSize: "16px",
+          width: "100%",
         },
       },
     },
