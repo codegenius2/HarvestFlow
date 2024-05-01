@@ -15,7 +15,7 @@ interface AmountInputProps {
 }
 const AmountInput : React.FC<AmountInputProps> = ({amount,maxAmount, setAmount}) => {
     return (
-        <Stack className={"borderAll"} direction={"row"} width={"200px"}>
+        <Stack className={"borderAll"} direction={"row"}>
             <div className={"borderRight"} style={{ width: '30px', height: '30px'}}
                  onClick={() => {
                      if(amount > 0) {
