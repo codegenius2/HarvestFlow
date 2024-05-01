@@ -1,5 +1,8 @@
 // Returns a ellipsis version of a string with the ellipsis being in the middle
 // eg. `0X97819177AF742660E6D8612F5E7882E538C7D9C9` will become `0x9781917..D9C9`
+import {NftContractDetails} from "@harvest-flow/utils";
+import { YEAR_IN_S} from "@src/utils/constants";
+
 export function middleEllipsis(address: string, length: number = 15) {
     const splitter = '...'
     const resultingLength = length - splitter.length
@@ -22,4 +25,13 @@ export function formatTime(time: number): string {
     const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
     return `${String(days)} d ${String(hours).padStart(2, '0')} hrs ${String(minutes).padStart(2, '0')} mins ${String(seconds).padStart(2, '0')} secs`;
+}
+
+export function calculateTotalRewards(
+    nftDetails: NftContractDetails,
+    amountToBuy: number
+): number {
+    const timeLeft = nftDetails.leaseEnd - Date.now();
+    const totalRewards = (amountToBuy * Number.parseInt(nftDetails.price)) * (nftDetails.minYield/100) * (timeLeft / YEAR_IN_S / 1000);
+    return Math.round(totalRewards);
 }

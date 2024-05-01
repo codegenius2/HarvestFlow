@@ -130,5 +130,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          backgroundColor: black,
+        }
+      }
+    }
   },
 });
