@@ -1,7 +1,7 @@
 import {AppContext} from "@src/main";
 import React, {useContext, useEffect} from "react";
 import MainController from "@src/MainController";
-import {Box, Button, Container, Divider, Stack} from "@mui/material";
+import {Button, Container, Divider, Stack} from "@mui/material";
 import {ProgressBar} from "@src/components/ProgressBar";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
