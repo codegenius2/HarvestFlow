@@ -32,6 +32,6 @@ export function calculateTotalRewards(
     amountToBuy: number
 ): number {
     const timeLeft = nftDetails.leaseEnd - Date.now();
-    const totalRewards = (amountToBuy * Number.parseInt(nftDetails.price)) * (nftDetails.minYield/100) * (timeLeft / YEAR_IN_S / 1000);
-    return Math.round(totalRewards);
+    const totalRewards = (amountToBuy * Number.parseInt(nftDetails.price)) * (nftDetails.minYield/1e18) * (timeLeft / YEAR_IN_S / 1000);
+    return totalRewards;
 }

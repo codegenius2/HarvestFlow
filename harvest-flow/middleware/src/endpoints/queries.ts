@@ -12,7 +12,7 @@ import {
     GetNftHistoryResponse,
     GetUserNftsResponse
 } from "../types";
-import {buildEndpointErrorFxn} from "../errors";
+import {buildEndpointErrorFxn, MiddlewareErrorCode} from "../errors";
 
 async function getAllNfts(notEnded : boolean): Promise<GetAllNftContractsResponse | FailedResult> {
 
@@ -43,6 +43,10 @@ async function getDetailedNftContract(contractAddress: string): Promise<GetDetai
         response = await fetch(query);
     } catch (err) {
         return errorFxn(PaimaMiddlewareErrorCode.ERROR_QUERYING_BACKEND_ENDPOINT, err);
+    }
+
+    if(response.status === 204) {
+        return errorFxn(MiddlewareErrorCode.CONTRACT_NOT_FOUND, `Contract with address ${contractAddress} is not found`);
     }
 
     try {

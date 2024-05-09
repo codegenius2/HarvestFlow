@@ -273,7 +273,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/NftContractDetails"
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/NftContractDetails"
+										}
+									],
+									"nullable": true
 								}
 							}
 						}

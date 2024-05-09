@@ -9,11 +9,13 @@ import {
 
 export const enum MiddlewareErrorCode {
   GENERIC_ERROR = PaimaMiddlewareErrorCode.FINAL_PAIMA_GENERIC_ERROR + 1,
+  CONTRACT_NOT_FOUND = PaimaMiddlewareErrorCode.FINAL_PAIMA_GENERIC_ERROR + 2,
 }
 
 type ErrorMessageMapping = Record<MiddlewareErrorCode, string>;
 const MIDDLEWARE_ERROR_MESSAGES: ErrorMessageMapping = {
   [MiddlewareErrorCode.GENERIC_ERROR]: 'Unspecified generic Game error',
+  [MiddlewareErrorCode.CONTRACT_NOT_FOUND]: 'Contract not found',
 };
 
 const errorMessageFxn: ErrorMessageFxn = buildErrorCodeTranslator({

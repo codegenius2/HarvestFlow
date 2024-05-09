@@ -39,18 +39,23 @@ const AmountInput : React.FC<AmountInputProps> = ({amount,maxAmount, setAmount})
     )
 }
 
-const BuyPanel : React.FC = () => {
+interface BuyPanelProps {
+    nftContractAddress : string;
+
+}
+
+const BuyPanel : React.FC<BuyPanelProps> = (
+    {nftContractAddress}
+) => {
     const mainController: MainController = useContext(AppContext);
 
     const [amountToBuy, setAmountToBuy] = React.useState<number>(1);
     const [nftDetails, setNftDetails] = React.useState<NftContractDetails>(null);
     const [endingIn, setEndingIn] = React.useState<string>("- days - hours - minutes - seconds");
-    const [totalRewards, setTotalRewards] = React.useState<number>(0);
+    const [totalRewards, setTotalRewards] = React.useState<string>("0");
 
     useEffect(() => {
-        //TODO: get the contract address from somewhere, if we handle multiple contracts
-        mainController.getDetailedNftContract("contractAddress").then((details) => {
-            console.log("Nft details: ", details);
+        mainController.getDetailedNftContract(nftContractAddress).then((details) => {
             setNftDetails(details);
         });
     }, []);
@@ -75,7 +80,7 @@ const BuyPanel : React.FC = () => {
 
     useEffect(() => {
         if(nftDetails){
-            setTotalRewards(calculateTotalRewards(nftDetails, amountToBuy));
+            setTotalRewards(calculateTotalRewards(nftDetails, amountToBuy).toFixed(2));
         }
     }, [nftDetails,amountToBuy]);
 
@@ -84,9 +89,11 @@ const BuyPanel : React.FC = () => {
             console.error("Wallet is not connected");
         }
 
-        mainController.buyNft(amountToBuy, Number.parseInt(nftDetails.price));
-
-        // TODO: refresh the nft details
+        mainController.buyNft(amountToBuy, Number.parseInt(nftDetails.price)).then(() => {
+            mainController.getDetailedNftContract(nftContractAddress).then((details) => {
+                setNftDetails(details);
+            });
+        });
     }
 
     return (
@@ -134,7 +141,7 @@ const BuyPanel : React.FC = () => {
                     </Stack>
                     <Divider orientation="vertical" variant="inset" flexItem sx={{width: "2px"}}/>
                     <Stack direction={"column"} alignItems="start">
-                        <span>{nftDetails ? nftDetails.minYield : "-"} %</span>
+                        <span>{nftDetails ? nftDetails.minYield / 1e16 : "-"} %</span>
                         <span>{nftDetails ? nftDetails.price : "----"} DAI</span>
                         {/*TODO: actual values*/}
                         <span>April, 2027</span>

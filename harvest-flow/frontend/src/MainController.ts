@@ -49,6 +49,10 @@ class MainController {
     return this.userAddress !== null;
   };
 
+  getContractAddress = (): string => {
+    return TOKTOK_NFT_CONTRACT_ADDRESS;
+  }
+
   async connectWallet(loginInfo : LoginInfo) : Promise<string> {
     const response = await Paima.default.userWalletLogin(loginInfo);
     console.log("connect wallet response: ", response);

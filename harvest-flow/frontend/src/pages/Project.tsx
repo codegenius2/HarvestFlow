@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Layout from "@src/layouts/Layout";
 import {Box, Grid, Typography} from "@mui/material";
 import BuyPanel from "@src/components/BuyPanel";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabPanel from "@src/components/TabPanel";
+import {AppContext} from "@src/main";
 
 
 
 
 const Project: React.FC = () => {
+    const mainController = useContext(AppContext);
     const [activeTab, setActiveTab] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -27,7 +29,7 @@ const Project: React.FC = () => {
                     </Grid>
                     <Grid item xs={6} >
                         <div style={{margin: '20px'}}>
-                            <BuyPanel />
+                            <BuyPanel nftContractAddress={mainController.getContractAddress()} />
                         </div>
                     </Grid>
                 </Grid>
