@@ -60,7 +60,6 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "@paima/evm-contracts": "1.1.0",
     "@paima/node-sdk": "2.2.0",
     "@paima/sdk": "2.2.0"
   },
