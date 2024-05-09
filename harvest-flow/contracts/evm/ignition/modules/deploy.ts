@@ -23,7 +23,7 @@ export default buildModule('TokTokNft', m => {
 
     // send ETH and MockToken to my test account
     m.send("SendingEth", "0xC7894CC334A5D21a833CDe21B53d7Fd76B5D882D", 1_000_000_000_000_000_000n);
-    m.call(mockToken, "transfer", ["0xC7894CC334A5D21a833CDe21B53d7Fd76B5D882D", 1_000_000_000_000_000_000_000n]);
+    m.call(mockToken, "transfer", ["0xC7894CC334A5D21a833CDe21B53d7Fd76B5D882D", 100_000_000_000_000_000_000_000n]);
 
     tokTokNftContract.dependencies.add(mockToken);
     return { tokTokNftContract };
