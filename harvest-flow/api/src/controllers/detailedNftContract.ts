@@ -11,8 +11,6 @@ export class DetailedNftContractController extends Controller {
     public async get(@Query() contractAddress : string): Promise<NftContractDetails | null> {
         const pool = requirePool();
 
-        console.log('contractAddress', contractAddress);
-        console.log('chainId', chainId);
 
         const contractAddressLc = contractAddress.toLowerCase();
 
@@ -20,8 +18,6 @@ export class DetailedNftContractController extends Controller {
             {  address: contractAddressLc, chain_id: chainId, },
             pool
         );
-
-        console.log('getCreditBalanceResult', getContractDataResult);
 
         if(getContractDataResult.length !== 0) {
             return {

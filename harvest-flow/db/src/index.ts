@@ -18,8 +18,11 @@ export {
 
 export {
     activateContract,
+    addMintedAmount,
     IActivateContractParams,
     IActivateContractResult,
+    IAddMintedAmountParams,
+    IAddMintedAmountResult,
 } from './update.queries.js';
 
 
