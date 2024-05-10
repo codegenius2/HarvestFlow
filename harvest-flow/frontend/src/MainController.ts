@@ -9,7 +9,6 @@ import TokTokNftAbi from "./abi/TokTokNft";
 // It will be used to check if the user has metamask installed and if they are connected to the correct network
 // Other settings also will be controlled here
 
-// create string enum called AppState
 export enum Page {
   Account = "/account",
   Project = "/project",
