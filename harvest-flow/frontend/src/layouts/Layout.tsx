@@ -13,11 +13,12 @@ const Layout: React.FC<Props> = ({ children, small, header = true }) => {
   return (
     <>
       <Container
-          disableGutters maxWidth={small ? "sm" : "lg"}
-          className="borderAll"
+        disableGutters
+        maxWidth={small ? "sm" : "lg"}
+        className="borderAll"
+        sx={{ border: "none" }}
       >
-
-        {header && <Header /> }
+        {header && <Header />}
         {children}
       </Container>
       <FeedbackModal />

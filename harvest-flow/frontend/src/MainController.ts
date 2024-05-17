@@ -12,6 +12,9 @@ import TokTokNftAbi from "./abi/TokTokNft";
 export enum Page {
   Account = "/account",
   Project = "/project",
+  Home = "/",
+  HomeEN = "/en",
+  HomeJP = "/jp",
 }
 const TOKTOK_NFT_CONTRACT_ADDRESS: string = process.env.TOKTOK_NFT_CONTRACT_ADDRESS;
 const PAYMENT_TOKEN_CONTRACT_ADDRESS: string = process.env.PAYMENT_TOKEN_CONTRACT_ADDRESS;

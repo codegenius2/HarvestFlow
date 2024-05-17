@@ -57,12 +57,16 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.5",
-    "@thirdweb-dev/wallets": "^2.1.11",
+    "@thirdweb-dev/wallets": "^0.2.8",
+    "autoprefixer": "^10.4.19",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.3",
     "eslint-plugin-react-hooks": "^4.6.0",
     "ethers": "^5.7.2",
+    "flow-util": "^1.1.0",
+    "harvest": "^2.2.6",
     "react": "^18.2.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1"
   }
